@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,6 +6,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from plotly.express import scatter_3d
+import os
 
 st.set_page_config(page_title="Customer Segmentation", layout="centered")
 st.title("🧠 Customer Segmentation using KMeans")
@@ -15,10 +14,18 @@ st.title("🧠 Customer Segmentation using KMeans")
 # Upload section
 uploaded_file = st.file_uploader("📂 Upload your customer CSV file", type=["csv"])
 
-if uploaded_file:
+# Fallback to Mall_Customers.csv if no upload
+if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.success("✅ File uploaded successfully!")
+elif os.path.exists("Mall_Customers.csv"):
+    df = pd.read_csv("Mall_Customers.csv")
+    st.info("📁 Default dataset 'Mall_Customers.csv' loaded automatically.")
+else:
+    df = None
+    st.warning("⚠️ Please upload a CSV file or make sure 'Mall_Customers.csv' is in the project directory.")
 
+if df is not None:
     st.subheader("📊 Data Preview")
     st.dataframe(df.head())
 
@@ -26,6 +33,9 @@ if uploaded_file:
 
     st.subheader("📌 Summary Statistics")
     st.write(df.describe())
+
+    st.subheader("📉 Null Value Check")
+    st.write(df.isnull().sum())
 
     st.subheader("🧮 Feature Correlation Heatmap")
     fig_corr, ax_corr = plt.subplots()
@@ -148,6 +158,3 @@ if uploaded_file:
 
     else:
         st.warning("⚠️ Please select at least 2 numeric features for clustering.")
-
-else:
-    st.info("👆 Upload a CSV file to get started.")
