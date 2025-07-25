@@ -5,7 +5,9 @@ A simple and interactive machine learning web app built with Streamlit to segmen
 ##  Live Demo
 
 Check out the live app here:  
-🔗 [Streamlit Demo](https://lhnd3vp4h48robviynbm94.streamlit.app/)
+🔗 [Streamlit Demo] Check out the deployed Streamlit app here:  
+[https://auudqvptsxryrowtmixmuf.streamlit.app/](https://auudqvptsxryrowtmixmuf.streamlit.app/)
+
 
 
 ## About the Project
